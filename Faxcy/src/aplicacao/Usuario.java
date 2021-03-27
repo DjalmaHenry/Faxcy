@@ -1,66 +1,49 @@
 // Classe Cliente
 package aplicacao;
 
-import br.faxcy.sistema.LSESemRepetidos;
-
 public class Usuario implements Comparable<Usuario> {
 
-    private String cpf;
+    private String login;
     private String nome;
-    private String telefone;
-    private String email;
+    private String senha;
 
-    public Usuario(String cpf, String nome, String telefone, String email) {
-        this.cpf = cpf;
+    public Usuario(String login, String nome, String senha) {
+        this.login = login;
         this.nome = nome;
-        this.telefone = telefone;
-        this.email = email;
+        this.senha = senha;
     }
 
-    public Usuario(String cpf) {
-        this.cpf = cpf;
+    public Usuario(String login) {
+        this.login = login;
     }
 
-    private String getCpf() {
-        return this.cpf;
+    public String getLogin() {
+        return this.login;
     }
 
-    private String getNome() {
+    public String getNome() {
         return this.nome;
     }
-
-    private String getTelefone() {
-        return this.telefone;
+    
+    private void setNome(String novoNome) {
+        this.nome = novoNome;
     }
 
-    private void setTelefone(String novoTelefone) {
-        this.telefone = novoTelefone;
+    private void setSenha(String novaSenha) {
+        this.senha = novaSenha;
     }
 
-    private String getEmail() {
-        return this.email;
+    public void atualizaNome(String nome) {
+        this.setNome(nome);
     }
 
-    private void setEmail(String novoEmail) {
-        this.email = novoEmail;
-    }
-
-    public void atualizaEmail(String email) {
-        this.setEmail(email);
-    }
-
-    public void atualizaTelefone(String telefone) {
-        this.setTelefone(telefone);
-    }
-
-    public String toString() {
-        return "Nome: " + this.getNome() + " Telefone: " + this.getTelefone()
-                + " E-mail: " + this.getEmail();
+    public void atualizaSenha(String senha) {
+        this.setSenha(senha);
     }
 
     public int compareTo(Usuario usuario) {
         int result;
-        result = this.cpf.compareTo(usuario.cpf);
+        result = this.login.compareTo(usuario.login);
         return result;
     }
 }

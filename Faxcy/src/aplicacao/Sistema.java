@@ -12,30 +12,47 @@ public class Sistema {
         usuarios = new LSESemRepetidos();
     }
     
-    public void inserirValor(String cpf) {
+    public void inserirValor(String login) {
         Scanner in = new Scanner(System.in);
-        String nome, telefone, email;
+        String nome, senha;
         boolean result;
-        Usuario usuA = new Usuario(cpf, "", "", "");
+        Usuario usuA = new Usuario(login);
         result = usuarios.buscaNum(usuA);
-
         if (result == true) {
-            System.err.println("CPF já existe! Inserção não efetuada!");
+            System.err.println("Login já existe! Cadastro não efetuado!");
         } else {
             System.out.println("Informe o Nome: ");
             System.out.print("-> ");
             nome = in.next();
             in.nextLine();
-            System.out.println("Informe o Telefone: ");
+            System.out.println("Informe a senha: ");
             System.out.print("-> ");
-            telefone = in.next();
+            senha = in.next();
             in.nextLine();
-            System.out.println("Informe o E-mail: ");
-            System.out.print("-> ");
-            email = in.next();
-            in.nextLine();
-            Usuario cliB = new Usuario(cpf, nome, telefone, email);
-            usuarios.inserirValorSemV(cliB);
+            Usuario usuB = new Usuario(login, nome, senha);
+            usuarios.inserirValorSemV(usuB);
+        }
+    }
+    
+    public boolean verificaSenha(String senha){
+        int contL = 0, contD = 0;
+        if(senha.length() < 6){
+            return false;
+        }
+        for(int i = 0; i < senha.length();i++){
+            if(Character.isLetter(senha.charAt(i))){
+                contL++;
+            }
+            if(Character.isDigit(senha.charAt(i))){
+                contD++;
+            }
+        }
+        if(contL < 3){
+            return false;
+        } else if(contD < 3){
+            return false;
+        } else {
+            return true;
         }
     }
 
