@@ -1,13 +1,12 @@
 package aplicacao;
 
-import sistema.Cadastro;
 import java.util.Scanner;
 
 public class Faxcy {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Cadastro cadastro = new Cadastro();
+        Sistema sistema = new Sistema();
         int op;
         while (true) {
             menuDesLog();
@@ -20,7 +19,7 @@ public class Faxcy {
                 case 2:
                     //login em conta
                     //pós login \/
-                    logado(cadastro, in);
+                    logado(sistema, in);
                     break;
                 case 0:
                     System.out.println("UNIKUT - Desligando... Volte sempre!");
@@ -32,7 +31,7 @@ public class Faxcy {
         }
     }
 
-    public static void logado(Cadastro cadastro, Scanner in) {
+    public static void logado(Sistema sistema, Scanner in) {
         int op;
         do {
             menuLog();
