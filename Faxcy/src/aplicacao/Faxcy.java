@@ -36,9 +36,10 @@ public class Faxcy {
                     senha = in.next();
                     in.nextLine();
                     login = sistema.logar(login, senha);
-                    if(login == null){
+                    if (login == null) {
                         break;
                     } else {
+                        System.out.println("Faxcy - Usuário logado com sucesso!");
                         logado(login, sistema, in);
                     }
                     break;
