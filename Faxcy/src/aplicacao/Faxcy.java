@@ -7,6 +7,7 @@ public class Faxcy {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Sistema sistema = new Sistema();
+        String login, senha;
         int op;
         while (true) {
             menuDesLog();
@@ -14,31 +15,51 @@ public class Faxcy {
             switch (op) {
                 case 1:
                     //criação de conta
-                    //pós criação \/
+                    System.out.println("=============================");
+                    System.err.println("Cadastrar uma conta:");
+                    System.out.println("Informe um login: ");
+                    System.out.print("-> ");
+                    login = in.next();
+                    in.nextLine();
+                    sistema.inserirValor(login);
                     break;
                 case 2:
                     //login em conta
-                    //pós login \/
-                    logado(sistema, in);
+                    System.out.println("=============================");
+                    System.err.println("Entrar na conta:");
+                    System.out.println("Informe o login: ");
+                    System.out.print("-> ");
+                    login = in.next();
+                    in.nextLine();
+                    System.out.println("Informe a senha: ");
+                    System.out.print("-> ");
+                    senha = in.next();
+                    in.nextLine();
+                    login = sistema.logar(login, senha);
+                    if(login == null){
+                        break;
+                    } else {
+                        logado(login, sistema, in);
+                    }
                     break;
                 case 0:
-                    System.out.println("UNIKUT - Desligando... Volte sempre!");
+                    System.out.println("Faxcy - Desligando... Volte sempre!");
                     System.exit(0);
                     break;
                 default:
-                    System.err.println("UNIKUT - Erro, opção inválida.");
+                    System.err.println("Faxcy - Erro, opção inválida.");
             }
         }
     }
 
-    public static void logado(Sistema sistema, Scanner in) {
+    public static void logado(String login, Sistema sistema, Scanner in) {
         int op;
         do {
             menuLog();
             op = in.nextInt();
             switch (op) {
                 case 1:
-                    System.out.println("UNIKUT - Saindo da conta...");
+                    System.out.println("Faxcy - Saindo da conta...");
                     break;
                 case 2:
                     //Alteração de perfil
@@ -56,11 +77,11 @@ public class Faxcy {
                     //Enviar mensagem
                     break;
                 case 0:
-                    System.out.println("UNIKUT - Desligando... Volte sempre!");
+                    System.out.println("Faxcy - Desligando... Volte sempre!");
                     System.exit(0);
                     break;
                 default:
-                    System.err.println("UNIKUT - Erro, opção inválida.");
+                    System.err.println("Faxcy - Erro, opção inválida.");
             }
         } while (op != 1);
     }

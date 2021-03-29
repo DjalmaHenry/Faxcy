@@ -13,6 +13,11 @@ public class Usuario implements Comparable<Usuario> {
         this.senha = senha;
     }
 
+    public Usuario(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+    }
+
     public Usuario(String login) {
         this.login = login;
     }
@@ -24,13 +29,21 @@ public class Usuario implements Comparable<Usuario> {
     public String getNome() {
         return this.nome;
     }
-    
+
     private void setNome(String novoNome) {
         this.nome = novoNome;
     }
 
     private void setSenha(String novaSenha) {
         this.senha = novaSenha;
+    }
+
+    public boolean validaSenha(String senha) {
+        if (this.senha.equals(senha)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void atualizaNome(String nome) {

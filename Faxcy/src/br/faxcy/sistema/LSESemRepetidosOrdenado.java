@@ -1,7 +1,7 @@
 // Classe LSESemRepetidos
 package br.faxcy.sistema;
 
-public class LSESemRepetidos<T extends Comparable<T>> {
+public class LSESemRepetidosOrdenado<T extends Comparable<T>> {
 
     private LSENode<T> prim;
     private LSENode<T> ult;
@@ -15,7 +15,45 @@ public class LSESemRepetidos<T extends Comparable<T>> {
         return qtd;
     }
 
-    public boolean verifica(LSESemRepetidos<T> lista2) {
+    public void inseri(T valor) { // método de inserção ordenada
+        LSENode<T> novo = new LSENode(valor);
+        LSENode<T> atual, anterior = null;
+        if (qtd == 0) { // inserir na lista vazia
+            prim = novo;
+            ult = novo;
+            qtd = 1;
+            System.out.println("Inserção efetuada!");
+        } else if (novo.getInfo().compareTo(prim.getInfo()) < 0) { // inserir no início da lista
+            novo.setProx(prim);
+            prim = novo;
+            qtd++;
+            System.out.println("Inserção efetuada!");
+        } else if (novo.getInfo().compareTo(ult.getInfo()) > 0) { // inserir no final da lista
+            ult.setProx(novo);
+            ult = novo;
+            qtd++;
+            System.out.println("Inserção efetuada!");
+        } else { // inserção no meio da lista
+            atual = prim;
+            while (atual != null) {
+                if (novo.getInfo().compareTo(atual.getInfo()) == 0) {
+                    System.out.println("Valor repetido. Inserção não efetuada!");
+                    return;
+                } else if (novo.getInfo().compareTo(atual.getInfo()) < 0) { // inserir
+                    anterior.setProx(novo);
+                    novo.setProx(atual);
+                    qtd++;
+                    System.out.println("Inserção efetuada!");
+                    return;
+                } else {
+                    anterior = atual;
+                    atual = atual.getProx();
+                }
+            }
+        }
+    }
+
+    public boolean verifica(LSESemRepetidosOrdenado<T> lista2) {
         LSENode<T> aux, aux2;
         int qtd2 = lista2.qtd;
         if (this.qtd != qtd2) {

@@ -1,17 +1,35 @@
 // Classe Cadastro
 package aplicacao;
 
-import br.faxcy.sistema.LSESemRepetidos;
+import br.faxcy.sistema.LSESemRepetidosOrdenado;
 import java.util.Scanner;
 
 public class Sistema {
 
-    private LSESemRepetidos<Usuario> usuarios;
+    private LSESemRepetidosOrdenado<Usuario> usuarios;
 
     public Sistema() {
-        usuarios = new LSESemRepetidos();
+        usuarios = new LSESemRepetidosOrdenado();
     }
-    
+
+    public String logar(String login, String senha) {
+        boolean result;
+        Usuario usu = new Usuario(login);
+        usu = usuarios.buscarObjeto(usu);
+        if (usu == null) {
+            System.err.println("Faxcy - Login inválido!");
+            return null;
+        } else {
+            result = usu.validaSenha(senha);
+            if (result == true) {
+                return login;
+            } else {
+                System.err.println("Faxcy - Senha inválida!");
+                return null;
+            }
+        }
+    }
+
     public void inserirValor(String login) {
         Scanner in = new Scanner(System.in);
         String nome, senha;
@@ -19,37 +37,46 @@ public class Sistema {
         Usuario usuA = new Usuario(login);
         result = usuarios.buscaNum(usuA);
         if (result == true) {
-            System.err.println("Login já existe! Cadastro não efetuado!");
+            System.err.println("Faxcy - Login já existe! Cadastro não efetuado!");
         } else {
-            System.out.println("Informe o Nome: ");
+            System.out.println("Informe um nome: ");
             System.out.print("-> ");
             nome = in.next();
             in.nextLine();
-            System.out.println("Informe a senha: ");
+            System.out.println("Informe uma senha: ");
             System.out.print("-> ");
             senha = in.next();
             in.nextLine();
+            while (verificaSenha(senha) == false) {
+                System.err.println("Erro, senha fraca!");
+                System.out.println("A senha deve conter no mínimo 6 caracteres. letras e números.");
+                System.out.println("Informe uma senha: ");
+                System.out.print("-> ");
+                senha = in.next();
+                in.nextLine();
+            }
             Usuario usuB = new Usuario(login, nome, senha);
-            usuarios.inserirValorSemV(usuB);
+            usuarios.inseri(usuB);
+            System.out.println("Faxcy - Cadastro realizado com sucesso!");
         }
     }
-    
-    public boolean verificaSenha(String senha){
+
+    public boolean verificaSenha(String senha) {
         int contL = 0, contD = 0;
-        if(senha.length() < 6){
+        if (senha.length() < 6) {
             return false;
         }
-        for(int i = 0; i < senha.length();i++){
-            if(Character.isLetter(senha.charAt(i))){
+        for (int i = 0; i < senha.length(); i++) {
+            if (Character.isLetter(senha.charAt(i))) {
                 contL++;
             }
-            if(Character.isDigit(senha.charAt(i))){
+            if (Character.isDigit(senha.charAt(i))) {
                 contD++;
             }
         }
-        if(contL < 3){
+        if (contL < 1) {
             return false;
-        } else if(contD < 3){
+        } else if (contD < 1) {
             return false;
         } else {
             return true;
