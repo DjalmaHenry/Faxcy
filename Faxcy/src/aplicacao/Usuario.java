@@ -6,11 +6,15 @@ public class Usuario implements Comparable<Usuario> {
     private String login;
     private String nome;
     private String senha;
+    private String[] listaAmigos;
+    private String[] listaAmigosPendentes;
 
     public Usuario(String login, String nome, String senha) {
         this.login = login;
         this.nome = nome;
         this.senha = senha;
+        listaAmigos = new String[500];
+        listaAmigosPendentes = new String[100];
     }
 
     public Usuario(String login, String senha) {
