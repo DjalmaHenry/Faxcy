@@ -40,6 +40,7 @@ public class Faxcy {
                         break;
                     } else {
                         System.out.println("Faxcy - Usuário logado com sucesso!");
+                        System.out.println("=============================");
                         logado(login, sistema, in);
                     }
                     break;
@@ -63,7 +64,9 @@ public class Faxcy {
                     System.out.println("Faxcy - Saindo da conta...");
                     break;
                 case 2:
-                    //Alteração de perfil
+                    System.out.println("=============================");
+                    System.err.println("Alterar dados da conta:");
+                    sistema.alterarValor(login);
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
@@ -72,9 +75,12 @@ public class Faxcy {
                     //Ver pedidos e aceitar pedidos de amizade
                     break;
                 case 5:
-                    //Exibir histórico de mensagens
+                    //Ver lista de amigos
                     break;
                 case 6:
+                    //Exibir histórico de mensagens
+                    break;
+                case 7:
                     //Enviar mensagem
                     break;
                 case 0:
@@ -104,8 +110,9 @@ public class Faxcy {
         System.out.println("2 - Alterar perfil.");
         System.out.println("3 - Adicionar amigo.");
         System.out.println("4 - Aceitar pedido de amizade.");
-        System.out.println("5 - Ver histórico de mensagens.");
-        System.out.println("6 - Enviar mensagem.");
+        System.out.println("5 - Ver lista de amigos.");
+        System.out.println("6 - Ver histórico de mensagens.");
+        System.out.println("7 - Enviar mensagem.");
         System.out.println("0 - Sair do programa.");
         System.out.println("Informe a opção desejada: ");
         System.out.print("-> ");

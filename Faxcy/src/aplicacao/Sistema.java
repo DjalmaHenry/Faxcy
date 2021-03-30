@@ -83,58 +83,74 @@ public class Sistema {
         }
     }
 
-    public void alterarValor(String cpf) {
+    public void alterarValor(String login) {
         Scanner in = new Scanner(System.in);
-        String telefone, email;
+        String nome, senha;
         Usuario usu;
-        boolean result;
         int op;
-        Usuario usuA = new Usuario(cpf, "", "", "");
+        Usuario usuA = new Usuario(login);
         usu = usuarios.buscarObjeto(usuA);
         if (usu == null) {
-            System.err.println("CPF NÃO existe!");
+            System.err.println("Faxcy - Login NÃO existe!");
         } else {
             do {
+                System.out.println("=============================");
                 System.out.println("O que deseja alterar?");
-                System.out.println("1 - E-mail e Telefone.");
-                System.out.println("2 - E-mail.");
-                System.out.println("3 - Telefone.");
+                System.out.println("1 - Nome e Senha.");
+                System.out.println("2 - Nome.");
+                System.out.println("3 - Senha.");
                 System.out.println("0 - Cancelar operação.");
                 System.out.println("Informe a opção:");
                 System.out.print("-> ");
                 op = in.nextInt();
                 switch (op) {
                     case 1:
-                        System.out.println("Informe o E-mail: ");
+                        System.out.println("Informe um nome: ");
                         System.out.print("-> ");
-                        email = in.next();
+                        nome = in.next();
                         in.nextLine();
-                        System.out.println("Informe o Telefone: ");
+                        System.out.println("Informe uma senha: ");
                         System.out.print("-> ");
-                        telefone = in.next();
+                        senha = in.next();
                         in.nextLine();
-                        usu.atualizaEmail(email);
-                        usu.atualizaTelefone(telefone);
-                        System.out.println("Alteração efetuada com sucesso!");
+                        while (verificaSenha(senha) == false) {
+                            System.err.println("Erro, senha fraca!");
+                            System.out.println("A senha deve conter no mínimo 6 caracteres. letras e números.");
+                            System.out.println("Informe uma senha: ");
+                            System.out.print("-> ");
+                            senha = in.next();
+                            in.nextLine();
+                        }
+                        usu.atualizaNome(nome);
+                        usu.atualizaSenha(senha);
+                        System.out.println("Faxcy - Alteração efetuada com sucesso!");
                         break;
                     case 2:
-                        System.out.println("Informe o E-mail: ");
+                        System.out.println("Informe um nome: ");
                         System.out.print("-> ");
-                        email = in.next();
+                        nome = in.next();
                         in.nextLine();
-                        usu.atualizaEmail(email);
-                        System.out.println("Alteração efetuada com sucesso!");
+                        usu.atualizaNome(nome);
+                        System.out.println("Faxcy - Alteração efetuada com sucesso!");
                         break;
                     case 3:
-                        System.out.println("Informe o Telefone: ");
+                        System.out.println("Informe uma senha: ");
                         System.out.print("-> ");
-                        telefone = in.next();
+                        senha = in.next();
                         in.nextLine();
-                        usu.atualizaTelefone(telefone);
-                        System.out.println("Alteração efetuada com sucesso!");
+                        while (verificaSenha(senha) == false) {
+                            System.err.println("Erro, senha fraca!");
+                            System.out.println("A senha deve conter no mínimo 6 caracteres. letras e números.");
+                            System.out.println("Informe uma senha: ");
+                            System.out.print("-> ");
+                            senha = in.next();
+                            in.nextLine();
+                        }
+                        usu.atualizaSenha(senha);
+                        System.out.println("Faxcy - Alteração efetuada com sucesso!");
                         break;
                     case 0:
-                        System.out.println("Operação cancelada.");
+                        System.out.println("Faxcy - Operação cancelada.");
                         break;
                     default:
                         System.err.println("Erro, opção inválida.");
