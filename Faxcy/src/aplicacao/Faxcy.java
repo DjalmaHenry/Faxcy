@@ -70,12 +70,21 @@ public class Faxcy {
                     break;
                 case 3:
                     //Procurar e adicionar um amigo novo
+                    String amigo;
+                    System.out.println("Informe o login do usuário que deseja adicionar:");
+                    System.out.print("-> ");
+                    amigo = in.next();
+                    in.nextLine();
+                    sistema.adicionaAmigoPendente(login, amigo);
                     break;
                 case 4:
                     //Ver pedidos e aceitar pedidos de amizade
+                    sistema.exibirAmigosPendentes(login);
+                    sistema.adicionaAmigo(login);
                     break;
                 case 5:
                     //Ver lista de amigos
+                    sistema.exibirAmigos(login);
                     break;
                 case 6:
                     //Exibir histórico de mensagens
