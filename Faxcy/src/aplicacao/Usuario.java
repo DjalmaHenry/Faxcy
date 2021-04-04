@@ -74,7 +74,7 @@ public class Usuario implements Comparable<Usuario> {
                 qtdListaAmigos++;
             } else {
                 for (i = 0; i < qtdListaAmigos; i++) {
-                    if (login.compareTo(listaAmigos[i]) == 1) {
+                    if (login.compareTo(listaAmigos[i]) == -1) {
                         break;
                     }
                 }
@@ -112,7 +112,7 @@ public class Usuario implements Comparable<Usuario> {
                     return true;
                 } else {
                     for (i = 0; i < qtdListaAmigos; i++) {
-                        if (login.compareTo(listaAmigos[i]) == 1) {
+                        if (login.compareTo(listaAmigos[i]) == -1) {
                             break;
                         }
                     }
