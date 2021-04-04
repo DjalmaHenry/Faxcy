@@ -40,7 +40,6 @@ public class Faxcy {
                         break;
                     } else {
                         System.out.println("Faxcy - Usuário logado com sucesso!");
-                        System.out.println("=============================");
                         logado(login, sistema, in);
                     }
                     break;

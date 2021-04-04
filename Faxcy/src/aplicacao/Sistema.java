@@ -162,27 +162,35 @@ public class Sistema {
 
     public void adicionaAmigoPendente(String login, String amigo) {
         int i;
-        Usuario usu;
+        Usuario usuAA, usuBB;
         Usuario usuA = new Usuario(amigo);
-        usu = usuarios.buscarObjeto(usuA);
-        if (usu == null) {
+        usuAA = usuarios.buscarObjeto(usuA);
+        if (usuAA == null) {
             System.err.println("Erro, esse usuário não existe.");
+        } else if (login.compareTo(amigo) == 0) {
+            System.err.println("Erro, você não pode adicionar você mesmo!");
         } else {
-            usuA = new Usuario(login);
-            usu = usuarios.buscarObjeto(usuA);
-            for (i = 0; i < usu.getQtdListaAmigos(); i++) {
-                if (usu.getListaAmigos(i).compareTo(amigo) == 0) {
+            Usuario usuB = new Usuario(login);
+            usuBB = usuarios.buscarObjeto(usuB);
+            for (i = 0; i < usuBB.getQtdListaAmigos(); i++) {
+                if (usuBB.getListaAmigos(i).compareTo(amigo) == 0) {
                     System.err.println("Este usuário já está na lista de amigos.");
                     return;
                 }
             }
-            for (i = 0; i < usu.getQtdListaAmigosPendentes(); i++) {
-                if (usu.getListaAmigosPendentes(i).compareTo(amigo) == 0) {
-                    System.err.println("Pedido de amizade já enviado! Aguarde ele(a) aceitar.");
+            for (i = 0; i < usuAA.getQtdListaAmigosPendentes(); i++) {
+                if (usuAA.getListaAmigosPendentes(i).compareTo(login) == 0) {
+                    System.err.println("Erro, pedido de amizade já enviado!");
                     return;
                 }
             }
-            usu.setListaAmigosPendentes(amigo);
+            for (i = 0; i < usuBB.getQtdListaAmigosPendentes(); i++) {
+                if (usuBB.getListaAmigosPendentes(i).compareTo(amigo) == 0) {
+                    System.err.println("Este usuário já encontra-se na lista de pendentes!");
+                    return;
+                }
+            }
+            usuAA.setListaAmigosPendentes(login);
             System.out.println("Faxcy - Pedido de amizade enviado com sucesso!");
         }
     }
@@ -190,10 +198,10 @@ public class Sistema {
     public void adicionaAmigo(String login) {
         Scanner in = new Scanner(System.in);
         boolean result;
-        Usuario usu;
-        Usuario usuA = new Usuario(login);
-        usu = usuarios.buscarObjeto(usuA);
-        if (usu.getQtdListaAmigosPendentes() == 0) {
+        Usuario usuAA, usuBB;
+        Usuario usuB = new Usuario(login);
+        usuBB = usuarios.buscarObjeto(usuB);
+        if (usuBB.getQtdListaAmigosPendentes() == 0) {
             return;
         } else {
             String amigo;
@@ -201,8 +209,11 @@ public class Sistema {
             System.out.print("-> ");
             amigo = in.next();
             in.nextLine();
-            result = usu.setListaAmigos(amigo);
+            Usuario usuA = new Usuario(amigo);
+            usuAA = usuarios.buscarObjeto(usuA);
+            result = usuBB.setListaAmigosB(amigo);
             if (result == true) {
+                usuAA.setListaAmigosA(login);
                 System.out.println("Faxcy - Amigo adicionado com sucesso!");
             } else {
                 System.err.println("Erro, usuário não consta na lista de pedidos de amizade.");
@@ -214,7 +225,7 @@ public class Sistema {
         Usuario aux;
         Usuario usu = new Usuario(login);
         aux = usuarios.buscarObjeto(usu);
-        if (usu.getQtdListaAmigosPendentes() == 0) {
+        if (aux.getQtdListaAmigosPendentes() == 0) {
             System.err.println("Lista de amigos pendentes vázia!");
         } else {
             System.out.println("Faxcy - Amigos Pendentes:");
@@ -228,9 +239,13 @@ public class Sistema {
         Usuario aux;
         Usuario usu = new Usuario(login);
         aux = usuarios.buscarObjeto(usu);
-        System.out.println("Faxcy - Amigos Pendentes:");
-        for (int i = 0; i < aux.getQtdListaAmigos(); i++) {
-            System.out.println(aux.getListaAmigos(i));
+        if (aux.getQtdListaAmigos() == 0) {
+            System.err.println("Lista de amigos vázia!");
+        } else {
+            System.out.println("Faxcy - Lista de Amigos:");
+            for (int i = 0; i < aux.getQtdListaAmigos(); i++) {
+                System.out.println(aux.getListaAmigos(i));
+            }
         }
     }
 

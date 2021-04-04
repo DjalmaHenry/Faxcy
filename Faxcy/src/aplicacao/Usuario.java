@@ -41,7 +41,7 @@ public class Usuario implements Comparable<Usuario> {
     public String getListaAmigos(int qtd) {
         return this.listaAmigos[qtd];
     }
-    
+
     public int getQtdListaAmigos() {
         return this.qtdListaAmigos;
     }
@@ -49,7 +49,7 @@ public class Usuario implements Comparable<Usuario> {
     public String getListaAmigosPendentes(int qtd) {
         return this.listaAmigosPendentes[qtd];
     }
-    
+
     public int getQtdListaAmigosPendentes() {
         return this.qtdListaAmigosPendentes;
     }
@@ -62,7 +62,32 @@ public class Usuario implements Comparable<Usuario> {
         this.senha = novaSenha;
     }
 
-    public boolean setListaAmigos(String login) {
+    public void setListaAmigosA(String login) {
+        int i;
+        boolean achou = false;
+        if (qtdListaAmigos == 0) {
+            listaAmigos[qtdListaAmigos] = login;
+            qtdListaAmigos++;
+        } else {
+            if (login.compareTo(listaAmigos[qtdListaAmigos - 1]) == 1) {
+                listaAmigos[qtdListaAmigos] = login;
+                qtdListaAmigos++;
+            } else {
+                for (i = 0; i < qtdListaAmigos; i++) {
+                    if (login.compareTo(listaAmigos[i]) == 1) {
+                        break;
+                    }
+                }
+                for (int j = qtdListaAmigos; j < i; j--) {
+                    listaAmigos[j] = listaAmigos[j - 1];
+                }
+                listaAmigos[i] = login;
+                qtdListaAmigos++;
+            }
+        }
+    }
+
+    public boolean setListaAmigosB(String login) {
         int i;
         boolean achou = false;
         for (i = 0; i < qtdListaAmigosPendentes; i++) {
@@ -91,7 +116,7 @@ public class Usuario implements Comparable<Usuario> {
                             break;
                         }
                     }
-                    for (int j = qtdListaAmigos; j > i; j--) {
+                    for (int j = qtdListaAmigos; j < i; j--) {
                         listaAmigos[j] = listaAmigos[j - 1];
                     }
                     listaAmigos[i] = login;
